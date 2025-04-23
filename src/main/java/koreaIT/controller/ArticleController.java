@@ -21,7 +21,13 @@ public class ArticleController extends Controller {
     @Override
     public void doAction(String methodName, String cmd) {
         switch (methodName) {
+
             case "modify":
+                if(!isLogined()){
+                    System.out.println("로그인 해라 좋은말로 할때.");
+                    break;
+
+                }
                 doModify(cmd);
                 break;
             case "delete":
@@ -34,6 +40,9 @@ public class ArticleController extends Controller {
                 showList();
                 break;
             case "write":
+                //로그인 상태 체크
+
+
                 doWrite();
                 break;
             default:
@@ -152,6 +161,10 @@ public class ArticleController extends Controller {
     }
 
     public void doWrite() {
+        // 로그인 상태 체크
+
+
+
         System.out.print("제목 : ");
         String title = sc.nextLine();
         System.out.print("내용 : ");

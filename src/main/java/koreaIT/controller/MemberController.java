@@ -12,7 +12,7 @@ public class MemberController extends Controller {
     private Scanner sc;
     private List<Member> memberList;
     private int lastMemberId = 3;
-    private Member loginedMember = null;
+
 
     public MemberController(Scanner sc) {
         this.sc = sc;
@@ -22,6 +22,9 @@ public class MemberController extends Controller {
     public void doAction(String methodName, String cmd) {
 
         switch (methodName) {
+            case "logout":
+                doLogout();
+                break;
             case "login":
                 doLogin();
                 break;
@@ -37,8 +40,9 @@ public class MemberController extends Controller {
 
     }
 
+
     public void doLogin() {
-        if (loginedMember != null) {
+        if (isLogined()) {
             System.out.println("이미 로그인 상태입니다.");
             return;
         }
@@ -67,6 +71,14 @@ public class MemberController extends Controller {
         }
 
 
+    }
+    public void doLogout(){
+        if(loginedMember == null){
+            System.out.println("이미 로그아웃 상태입니다");
+            return;
+        }
+        loginedMember = null;
+        System.out.println("로그아웃 성공");
     }
 
     public void showMember() {
