@@ -3,20 +3,43 @@ package koreaIT.controller;
 import koreaIT.dto.Article;
 import koreaIT.util.Util;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class ArticleController {
+public class ArticleController extends Controller {
 
     private Scanner sc;
-    List<Article> articleList;
-    int lastArticleId = 3;
+    private List<Article> articleList;
+    private int lastArticleId = 3;
 
-    public ArticleController(Scanner sc, List<Article> articleList) {
+    public ArticleController(Scanner sc) {
         this.sc = sc;
-        this.articleList = articleList;
+        this.articleList = new ArrayList<>();
     }
 
+    @Override
+    public void doAction(String methodName, String cmd) {
+        switch (methodName) {
+            case "modify":
+                doModify(cmd);
+                break;
+            case "delete":
+                doDelete(cmd);
+                break;
+            case "detail":
+                showDetail(cmd);
+                break;
+            case "list":
+                showList();
+                break;
+            case "write":
+                doWrite();
+                break;
+            default:
+                System.out.println("명령어를 확인해주세요.3");
+        }
+    }
 
     public void doModify(String cmd) {
 
@@ -155,7 +178,7 @@ public class ArticleController {
     }
 
     public void makeTestData() {
-        System.out.println("테스트를 위한 데이터를 생성합니다.");
+        System.out.println("테스트를 위한 게시글 데이터를 생성합니다.");
         articleList.add(new Article(1, "제목1", "내용1", "2025-03-12 12:12:12", Util.getNowDate()));
         articleList.add(new Article(2, "제목2", "내용2", "2025-04-12 12:12:12", Util.getNowDate()));
         articleList.add(new Article(3, "제목3", "내용3", "2025-05-12 12:12:12", Util.getNowDate()));
